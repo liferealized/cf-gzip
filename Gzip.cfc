@@ -13,13 +13,13 @@
         <cfscript>
             var loc = {};
 
-            loc.text = CreateObject("java", "java.lang.String").init(arguments.string)
-            loc.data = CreateObject("java", "java.io.ByteArrayOutputStream").init()
-            loc.comp = createObject("java", "java.util.zip.GZIPOutputStream").init(loc.data)
+            loc.text = CreateObject("java", "java.lang.String").init(arguments.string);
+            loc.data = CreateObject("java", "java.io.ByteArrayOutputStream").init();
+            loc.comp = createObject("java", "java.util.zip.GZIPOutputStream").init(loc.data);
             
-            loc.comp.write(text.getBytes());
-            loc.finish();
-            loc.close();
+            loc.comp.write(loc.text.getBytes());
+            loc.comp.finish();
+            loc.comp.close();
 
             if (Len(arguments.encoding))
                 return BinaryEncode(loc.data.toByteArray(), arguments.encoding);
@@ -55,7 +55,7 @@
             loc.decStream.close();
             loc.outStream.close();
         </cfscript>
-        <cfreturn loc.decStream.toString() />
+        <cfreturn loc.outStream.toString() />
     </cffunction>
 
 </cfcomponent>
